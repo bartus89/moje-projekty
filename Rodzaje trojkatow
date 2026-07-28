@@ -1,0 +1,62 @@
+#include <cmath>
+#include <iomanip>
+#include <iostream>
+using namespace std;
+
+void sortowanie_babelkowe(int tab[],int n)
+{
+    for(int i=0; i<n; i++)
+        for(int j=1; j<n-i; j++) //pętla wewnętrzna
+            if(tab[j-1]>tab[j])
+                //zamiana miejscami
+                swap(tab[j-1], tab[j]);
+}
+
+int main()
+{
+    int a,b,c;
+
+    while (cin>>a>>b>>c)
+    {
+
+        //tworze tablice z podanych liczb
+
+        int tab[3]= {a,b,c};
+
+        //sortowanie
+
+        sortowanie_babelkowe(tab,3);
+
+        int x=tab[0];
+        int y=tab[1];
+        int z=tab[2];
+
+        //sprawdzenie trojkata
+        if (x+y<=z)
+        {
+            cout<<"brak"<<endl;
+            continue;
+        }
+
+        //kwadraty
+        int a2=pow(tab[0],2);
+        int b2=pow(tab[1],2);
+        int c2=pow(tab[2],2);
+
+
+        if(a2+b2==c2)
+        {
+            cout<<"prostokatny"<<endl;
+        }
+        else if(a2+b2<c2)
+        {
+            cout<<"rozwartokatny"<<endl;
+        }
+        else if(a2+b2>c2)
+        {
+            cout<<"ostrokatny"<<endl;
+        }
+    }
+
+    return 0;
+}
