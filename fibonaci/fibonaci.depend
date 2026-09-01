@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1708970264 source:/home/bartosz/Dokumenty/fibonaci/main.cpp
+	<iostream>
+	<iomanip>
+
+1708970264 source:/home/bartek/Dokumenty/fibonaci/main.cpp
+	<iostream>
+	<iomanip>
+
+1708970264 source:/home/bartek/Dokumenty/Programy C++/fibonaci/main.cpp
+	<iostream>
+	<iomanip>
+
+1767021474 source:/home/bartek/Dokumenty/Programy_CPP/fibonaci/main.cpp
+	<iostream>
+	<iomanip>
+
