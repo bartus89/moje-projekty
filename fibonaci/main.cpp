@@ -4,7 +4,7 @@ using namespace std;
 int n; //n-ty wyraz ciagu
 long double fib[100000]; //tablica 10 000 wyrazowa wyrazy sa numerowane od 0
 long double proporcja=0;
-
+int zmienna=0;
 int main()
 {
     cout << "Ile wyrazów ciągu Fibonaciego chcesz zobaczyć?" << endl;
