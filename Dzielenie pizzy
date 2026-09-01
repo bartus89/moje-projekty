@@ -1,0 +1,31 @@
+#include <cmath>
+#include <iomanip>
+#include <iostream>
+using namespace std;
+
+int main() {
+  const double pi = acos(-1.0);
+  int ile = 0;
+  int n = 0; // ilu
+  int d = 0; // dlugosc kartonu
+  cin >> ile;
+  cout << fixed << setprecision(3);
+
+  for (int i = 0; i < ile; i++) {
+
+    cin >> d >> n;
+
+    int ciecia;
+    double luk;
+
+       if (n % 2 == 0) {
+            ciecia = n / 2;
+            luk = pi * d / n;
+        } else {
+            ciecia = n;
+            luk = pi * d / n / 2;}
+
+    cout << luk << " " << ciecia << endl;
+  }
+  return 0;
+}

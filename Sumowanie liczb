@@ -1,0 +1,19 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    int ile = 0;
+    int suma = 0;
+    int* tablica = new int [100];
+
+    while(cin >> tablica[ile])
+    {
+        suma = suma + tablica[ile];
+        cout << suma << endl;
+        ile++;
+    }
+    delete[] tablica;
+    return 0;
+}

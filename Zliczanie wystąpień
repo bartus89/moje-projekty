@@ -1,0 +1,103 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    int cel,n; //cel to szukana liczba w n elementowym zbiorze
+
+    while(cin>>cel>>n)
+    {
+        int licznik=0;
+        int liczba;
+
+        for (int i=0; i<n; i++)
+        {
+            cin>>liczba;
+            if(liczba==cel)
+                licznik++;
+        }
+        cout<<licznik<<endl;
+    }
+
+    return 0;
+}
+//rozwiazanie z tablicami
+#include <iostream>
+using namespace std;
+int main()
+{
+    int cel,n;
+    int tablica[10];
+
+    while(cin>>cel>>n)
+    {
+        int licznik=0;
+        for (int i=0; i<n; i++)
+        {
+            cin>>tablica[i];
+        }
+
+        for (int i=0; i<n; i++){
+            if(tablica[i]==cel){
+                licznik++;
+            }
+        }
+        cout<<licznik<<endl;
+    }
+
+    return 0;
+}
+//rozwiazanie z tablicami dynamicznymi
+#include <iostream>
+using namespace std;
+int main()
+{
+    int cel,n;
+    int tablica[10];
+
+    while(cin>>cel>>n) 
+    {
+        int licznik=0;
+        int* sekwencja=new int[n]; //dynamiczna alokacja tablicy
+
+        for (int i=0; i<n; i++)
+        {
+            cin>>sekwencja[i];
+        }
+
+        for (int i=0; i<n; i++)
+        {
+            if(sekwencja[i]==cel)
+            {
+                licznik++;
+            }
+        }
+        cout<<licznik<<endl;
+        delete[] sekwencja; //zwalniamy pamięć
+    }
+
+    return 0;
+}
+//rozwiazanie z vector
+#include <iostream>
+#include<vector>
+using namespace std;
+int main()
+{
+    int cel,n;
+
+    while(cin>>cel>>n) {
+        vector<int> sekwencja(n); //początkowo pusty
+        int licznik=0;
+
+        for(int i=0;i<n;i++){
+            cin>>sekwencja[i];
+            if(sekwencja[i]==cel)
+            licznik++;
+        }
+
+    cout<<licznik<<endl;
+    cout<<sekwencja.size(); //wypisze bieżący rozmiar wektora
+    }
+
+return 0;
+}

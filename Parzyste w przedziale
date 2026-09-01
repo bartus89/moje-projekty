@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int ile, a, b;
+    cin >> ile;
+
+    for (int j = 0; j < ile; j++) {
+        cin >> a >> b;
+
+        bool pierwsza = true; //zakładamy że to pierwsza liczba
+        bool czy_jest = false; //na razie nie znaleziono żadnej pazrystej
+
+        for (int i = a; i <= b; i++) {
+            if (i % 2 == 0) { //znaleziono  parzysta
+                czy_jest = true; //zapamiętuje ze jest parzysta liczba
+                if (!pierwsza) { //jeżeli nie jest to pierwsza liczba
+                    cout << " "; //to wypisz spacje
+                }
+                cout << i; //wypisz liczbe
+                pierwsza = false; //następna już nie będzie pierwsza
+            }
+        }
+
+        if (!czy_jest) { //jeżeli nie znaleziono żadnej parzystej
+            cout << "BRAK";
+        }
+        cout << endl;
+    }
+    return 0;
+}
+//to samo tylko funkcja void
+#include <iostream>
+using namespace std;
+void wypisz_parzyste(int a, int b);
+int main() {
+    int ile, a, b;
+    cin >> ile;
+
+    for (int i = 0; i < ile; i++) {
+        cin >> a >> b;
+        wypisz_parzyste(a, b);
+        cout << endl;
+    }
+    return 0;
+}
+void wypisz_parzyste(int a, int b) {
+    bool pierwsza = true;
+    bool znaleziono = false;
+
+    for (int i = a; i <= b; i++) {
+        if (i % 2 == 0) {
+            znaleziono = true;
+            if (!pierwsza) {
+                cout << " ";
+            }
+            cout << i;
+            pierwsza = false;
+        }
+    }
+
+    if (!znaleziono) {
+        cout << "BRAK";
+    }
+}
+

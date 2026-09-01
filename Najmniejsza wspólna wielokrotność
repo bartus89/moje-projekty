@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+int nwd(int a, int b) //znajdujemy najmniejszy wspolny dzielnik
+{   // np. mamy dane a=12 b=15; b!=0 wiec przechodzimy do wywołania podfunkcji nwd
+    if (b==0) return a; //mechanizm rekurencyjny jezeli b=0 zwraca a
+    return nwd(b, a%b); //podstawia nwd(15 a%b=12) i z tym wracamy do poczatku nwd
+}
+
+int nww (int a, int b) //najmniejsza wspolna wielokrotnosc
+{
+    int x=(a/nwd(a,b))*b;
+    return x;
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    for(int i=1; i<=n; i++)
+    {
+        int a,b;
+        cin>>a>>b;
+
+        int wynik=0;
+        wynik=nww(a,b);
+        cout<<wynik<<endl;
+    }
+
+    return 0;
+}

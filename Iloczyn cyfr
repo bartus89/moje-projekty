@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+//dla danego n znajdź najmniejszą dodatnią liczbe której iloczyn cyfr=n
+string znajdzNajmniejszyIloczyn(int n){
+    //Przypadki specjalne
+    if(n==0) return "10"; //bo 1*0=0
+    if(n==1) return "1";
+
+    vector<int> digits; //tworze wektor digits
+
+    //Rozkład na czynniki od 9 do 2
+    for(int i=9;i>=2;i--){ //np.mamy liczbę n=36
+        while(n%i==0) { // 36:9=4 reszty 0
+            digits.push_back(i); //cyfry{9,4}
+            n=n/i; //teraz n=4 4:4=1
+        }
+    }
+
+    //jezeli nie udało sie rozlozyc na czynniki
+    if(n>1) return "NIE"; //jeżeli po podziale n>1 np.13 liczby nie da sie podzielić
+
+    //Sortujemy cyfry rosnąco, aby otrzymac minimalna liczbe
+    sort(digits.begin(),digits.end()); //cyfry{4,9}
+
+    //tworzymy wynik
+    string wynik=""; //pusty string tworze
+    for(int zlaczenie : digits){ //petla iteruje przez wszystkie elementy wektora digits
+        wynik+= to_string(zlaczenie);
+    }
+    //to_string(zlaczenie) - zamienia liczbę całkowitą na string
+    //wynik += ... - dodaje (konkatenuje) string na koniec
+
+    return wynik;
+}
+
+int main(){
+    ios_base::sync_with_stdio(false); //Wyłącza synchronizację między strumieniami C++ (cin/cout) a strumieniami C (stdio - scanf/printf)
+    cin.tie(NULL); //Odłącza cin od cout
+
+    int ile;
+    cin>>ile;
+
+    while(ile--){ //dokonuje post-dekrementacji aż ile=0 wtedy petla sie nie wykona
+        int liczba;
+        cin>>liczba;
+        cout<<znajdzNajmniejszyIloczyn(liczba)<<"\n";
+    }
+
+return 0;
+}

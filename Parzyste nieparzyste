@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+
+int main(){
+    int ile;
+    cin>>ile;
+
+    while(ile--){
+        int n;
+        cin>>n;
+
+    vector<int> liczby(n);
+    for(int i=0;i<n;i++){
+        cin>>liczby[i];
+    }
+
+    //wypisz elementy z pozycji parzystych
+    for(int i=1;i<n;i+=2){
+        cout<<liczby[i]<<" ";
+    }
+
+    //wypisz elementy z pozycji nieparzystych
+    for(int i=0;i<n;i+=2){
+        cout<<liczby[i]<<" ";
+
+    }
+    cout<<endl;
+    }
+return 0;
+}

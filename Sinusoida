@@ -1,0 +1,166 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+
+const double PI=acos(-1.0); //przechowuje liczbe pi ponieważ acos(-1.0)=pi
+const double EPS=1e-9; //zmienna epsilon do przechowania bardzo małej liczby
+
+// Funkcja licząca liczbę rozwiązań dla jednej gałęzi: x = base + 2kπ
+long long liczGalezie(long long a,long long b,double base){
+    // Szukamy pierwszego k takiego, że base + 2kπ >= a
+    long long k;
+    if(base>=a-EPS){
+        k=0;
+        // Zmniejszamy k aż do momentu, gdy znajdziemy pierwsze rozwiązanie >= a
+        while(base+2*PI*(k-1)>=a-EPS) {
+        k--;
+        }
+    } else {
+        // base < a, więc potrzebujemy k > 0
+        k=(long long)ceil((a-base) / (2*PI));
+
+    }
+
+    long long licznik=0;
+    while(true){
+        double x=base+2*PI*k;
+        if(x>b+EPS) break;
+        if(x>=a-EPS) licznik++;
+        k++;
+    }
+    return licznik;
+}
+
+long long liczRozwiazania(long long a,long long b,double m){
+//Jeżeli m jest spoza zakresu [-1,1], wtedy nie ma rozwiązań
+    if (fabs(m)>1.0+EPS) return 0;
+
+//obsługuje specjalne przypadki
+    //Przypadek m=0
+    if(fabs(m)<EPS){ //fabs zwraca wartosc bezwzgledna z m
+        // sin(x) = 0 => x = kπ
+        // Liczymy liczby całkowite k takie, że a <= kπ <= b
+            long long k_min=ceil(a/PI); //zaokrągla w górę
+            long long k_max=floor(b/PI); //zaokrągla w dół
+            long long result=k_max-k_min+1;
+            if(result<0) return 0;
+            return result;
+    }
+    //Przypadek m=1
+    if(fabs(m-1.0)<EPS){
+        // sin(x) = 1 => x = π/2 + 2kπ
+        return liczGalezie(a,b,PI/2.0);
+    }
+
+    //Przypadek m=-1
+    if(fabs(m+1.0)<EPS){
+        // sin(x) = -1 => x = -π/2 + 2kπ
+        return liczGalezie(a,b,-PI/2.0);
+    }
+
+    // Przypadek ogólny: -1 < m < 1, m ≠ 0
+    double alfa=asin(m);
+    double beta=PI-alfa;
+
+    //Liczymy rozwiazania dla obu galezi
+    long long count1=liczGalezie(a,b,alfa);
+    long long count2=liczGalezie(a,b,beta);
+
+    return count1+count2;
+}
+
+
+int main(){
+
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        long long a, b;
+        double m;
+        cin >> a >> b >> m;
+
+        cout << liczRozwiazania(a, b, m) << "\n";
+    }
+return 0;
+}
+
+//Zadanie poprawione
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+
+const double PI = acos(-1.0);
+const double EPS = 1e-12;
+
+// Funkcja licząca liczbę całkowitych k takich, że L <= k <= R
+long long countInClosedInterval(double L, double R) {
+    // Dla przedziału domkniętego [L, R]:
+    // k_min = ceil(L)
+    // k_max = floor(R)
+    
+    long long k_min = (long long)ceil(L - EPS);  // zabezpieczenie przed błędami zaokrągleń
+    long long k_max = (long long)floor(R + EPS);
+    
+    long long result = k_max - k_min + 1;
+    return result > 0 ? result : 0;
+}
+
+// Liczy rozwiązania dla x = base + 2kπ w przedziale [aπ, bπ]
+long long countBranch(long long a, long long b, double base) {
+    // aπ <= base + 2kπ <= bπ
+    // (a - base/π)/2 <= k <= (b - base/π)/2
+    
+    double c = base / PI;
+    double L = (a - c) / 2.0;
+    double R = (b - c) / 2.0;
+    
+    return countInClosedInterval(L, R);
+}
+
+long long solve(long long a, long long b, double m) {
+    // Sprawdzamy czy m jest w zakresie [-1, 1]
+    if (m > 1.0 + EPS || m < -1.0 - EPS) return 0;
+    
+    // Ograniczamy m do [-1, 1] aby uniknąć problemów z asin
+    if (m > 1.0) m = 1.0;
+    if (m < -1.0) m = -1.0;
+    
+    // Przypadek m = 1
+    if (fabs(m - 1.0) < EPS) {
+        return countBranch(a, b, PI / 2.0);
+    }
+    
+    // Przypadek m = -1
+    if (fabs(m + 1.0) < EPS) {
+        return countBranch(a, b, -PI / 2.0);
+    }
+    
+    // Przypadek ogólny
+    double alfa = asin(m);
+    
+    return countBranch(a, b, alfa) + countBranch(a, b, PI - alfa);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int t;
+    cin >> t;
+    
+    while (t--) {
+        long long a, b;
+        double m;
+        cin >> a >> b >> m;
+        
+        cout << solve(a, b, m) << "\n";
+    }
+    
+    return 0;
+}

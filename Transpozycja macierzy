@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int m, n;
+    cout<<"Podaj liczbe wierszy: ";
+    cin>>m;
+    cout<<"Podaj liczbe kolumn: ";
+    cin>>n;
+    int macierz[m][n];
+    cout<<endl;
+    cout<<"Wczytywanie wartości do macierzy"<<endl;
+    // Wczytywanie macierzy
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> macierz[i][j];
+        }
+    }
+    cout<<endl;
+    //wyświetlenie orginalnej macierzy
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << macierz[i][j];
+                if (j < n - 1) {
+                cout << " ";
+            }
+        }
+        cout<<endl;
+    }
+
+    cout<<endl;
+
+    // Transponowanie i wypisanie wyniku
+    for (int j = 0; j < n; j++) {
+        for (int i = 0; i < m; i++) {
+            cout << macierz[i][j];
+            if (i < m - 1) {
+                cout << " ";
+            }
+        }
+        cout << endl;
+    }
+
+    return 0;
+}

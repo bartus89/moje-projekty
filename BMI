@@ -1,0 +1,147 @@
+#include <iostream>
+#include <math.h>
+#include <string>
+#include <vector>
+using namespace std;
+
+struct Osoba{ //tworze strukture Osoba
+    string imie;
+    int wzrost;
+    int masa;
+};
+
+int main(){
+    int ile;
+    cin>>ile;
+
+    vector<Osoba> niedowaga;
+    vector<Osoba> prawidlowa;
+    vector<Osoba> nadwaga;
+
+    for(int i=0;i<ile;i++){
+        Osoba osoba; //tworze strukture osoba
+        cin>>osoba.imie>>osoba.wzrost>>osoba.masa;
+
+    //zamiana z cm na m
+    double wzrost_m =osoba.wzrost/100.0;
+
+    //obliczamy bmi
+    double bmi=osoba.masa/pow(wzrost_m,2);
+
+    //klasyfikujemy
+    if(bmi<18.5){
+        niedowaga.push_back(osoba);
+    }
+    else if(bmi>=18.5 && bmi<25.0){
+        prawidlowa.push_back(osoba);
+    }
+    else{
+        nadwaga.push_back(osoba);
+    }
+
+  }
+
+    //wypisujemy wyniki
+    if(!niedowaga.empty()){
+        cout<<"niedowaga"<<endl;
+        for(int i=0;i<niedowaga.size();i++){
+            cout<<niedowaga[i].imie<<endl;
+        }
+        cout<<endl;
+    }
+
+    if(!prawidlowa.empty()){
+        cout<<"wartosc prawidlowa"<<endl;
+        for(int i=0;i<prawidlowa.size();i++){
+            cout<<prawidlowa[i].imie<<endl;
+        }
+        cout<<endl;
+    }
+
+    if(!nadwaga.empty()){
+        cout<<"nadwaga"<<endl;
+        for(int i=0;i<nadwaga.size();i++){
+            cout<<nadwaga[i].imie<<endl;
+        }
+        cout<<endl;
+    }
+
+return 0;
+}
+
+//Rozwiazanie inne
+
+#include <iostream>
+#include <math.h>
+#include <string>
+#include <vector>
+using namespace std;
+// Struktura przechowująca dane jednej osoby
+struct Osoba {
+  string imie;
+  int masa;
+  int wzrost;
+
+  double obliczBMI() const { // const oznacza że metoda NIE zmieni pól struktury
+    double wzrost_m = wzrost / 100.0;
+    return masa / pow(wzrost_m, 2);
+  }
+
+  string klasyfikuj() const {
+    double bmi = obliczBMI();
+    if (bmi < 18.5)
+      return "niedowaga";
+    if (bmi < 25.0)
+      return "wartosc prawidlowa";
+    return "nadwaga";
+  }
+};
+// Procedura wypisująca osoby z danej grupy
+void wypiszGrupe(const string &nazwa, const vector<Osoba> &osoby) {
+  if (osoby.empty())
+    return;
+  cout << nazwa << endl;
+  for (const auto &o : osoby) // Dla każdej osoby 'o' w wektorze 'osoby'
+    cout << o.imie << endl;   // Wypisz jej imię
+  cout << endl;
+}
+// Parametry:
+//   nazwa - tekst nazwy grupy (np. "niedowaga")
+//   osoby - wektor zawierający osoby z tej grupy (przekazany przez const
+//   referencję)
+int main() {
+  int ile;
+  cin >> ile;
+  // tworzymy 3 wektory dynamiczne dla każdej kategorii
+  vector<Osoba> niedowaga;
+  vector<Osoba> prawidlowa;
+  vector<Osoba> nadwaga;
+
+  for (int i = 0; i < ile; i++) {
+    Osoba o; // tymczasowa struktura Osoba
+    cin >> o.imie >> o.masa >> o.wzrost;
+
+    // dodajemy osobę do odpowiedniego wektora
+    string kat = o.klasyfikuj();
+    if (kat == "niedowaga")
+      niedowaga.push_back(o);
+    else if (kat == "wartosc prawidlowa")
+      prawidlowa.push_back(o);
+    else
+      nadwaga.push_back(o);
+  }
+
+  // wypisujemy wszystkie grupy w wymaganej kolejności
+  wypiszGrupe("niedowaga", niedowaga);
+  wypiszGrupe("wartosc prawidlowa", prawidlowa);
+  wypiszGrupe("nadwaga", nadwaga);
+}
+
+/* const string& nazwa  // Nazwa grupy (np. "niedowaga")
+string - to tekst
+& - referencja (nie kopiuję, tylko podglądam oryginał)
+const - obiecuję, że NIE zmienię tego tekstu
+const vector<Osoba>& osoby  // Wektor osób do wypisania
+vector<Osoba> - lista osób
+& - referencja (nie kopiuję całej listy - to byłoby wolne!)
+const - obiecuję, że NIE zmienię listy (tylko ją odczytam) */
