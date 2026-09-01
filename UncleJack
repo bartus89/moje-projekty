@@ -1,0 +1,17 @@
+#include <iostream>
+#include <boost/multiprecision/cpp_int.hpp>
+using namespace std;
+using namespace boost::multiprecision;
+
+int main()
+{
+// N=nephews D=disk problem podziału rzeczy które są unikatowe i nie stosujemy 
+//dwumianu Newtoona
+    int N,D;
+    while(cin>>N>>D){
+        if(N==0 && D==0)
+            break;
+        cpp_int wynik=pow(cpp_int(N),D);
+        cout<<wynik<<endl;
+    }
+}
