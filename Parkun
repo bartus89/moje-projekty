@@ -1,0 +1,40 @@
+#include <climits>
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main() {
+  int n;
+  cin >> n;
+
+  vector<string> imiona(n);
+  vector<string> nazwiska(n);
+  vector<int> czasy(n);
+  // przechowuje maksymalną możliwą wartością typu int
+  int najlepszy = INT_MAX;
+
+  for (int i = 0; i < n; i++) {
+    string imie, nazwisko, czas;
+    cin >> imie >> nazwisko >> czas;
+
+    int minuty = stoi(czas.substr(0, 2)); // stoi = string to int
+    int sekundy = stoi(czas.substr(3, 2));
+    int total = minuty * 60 + sekundy; //// 22*60 + 52 = 1320 + 52 = 1372 sekund
+
+    imiona[i] = imie;
+    nazwiska[i] = nazwisko;
+    czasy[i] = total;
+
+    if (total < najlepszy) {
+      najlepszy = total;
+    }
+  }
+
+  for (int i = 0; i < n; i++) {
+    if (czasy[i] == najlepszy) {
+      cout << imiona[i] << " " << nazwiska[i] << "\n";
+    }
+  }
+  return 0;
+}
